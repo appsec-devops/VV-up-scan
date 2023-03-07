@@ -26,7 +26,7 @@ jobs:
       - name: Run Veracode Dependency Scan
         run: ./dependency-check/bin/dependency-check.sh --project "My Project" --scan .
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3.11.1
+        uses: peter-evans/create-pull-request@v4
         with:
           commit-message: Automatic Dependency Update
           branch: automatic-dependency-update
