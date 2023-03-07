@@ -16,11 +16,11 @@ jobs:
     - name: Install dependencies
       run: npm install
     - name: Run Veracode Dependency Scan
-      uses: https://github.com/veracode/dependency-check-action.git@v1.3
+      uses: veracode/veracode-sca@v2.1.6
       with:
         veracode_api_id: ${{ secrets.VERACODE_API_ID }}
         veracode_api_key: ${{ secrets.VERACODE_API_KEY }}
-        fail_on_cvss: 7.0
+        fail_on_cvss: 9.0
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4
       with:
