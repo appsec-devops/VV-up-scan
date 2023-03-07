@@ -1,4 +1,5 @@
 name: Veracode Dependency Scan
+
 on:
   push:
     branches:
@@ -18,22 +19,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
+      - name: Install Veracode Dependency Check CLI
+        run: |
+          curl -sSL -o dependency-check.zip https://github.com/jeremylong/DependencyCheck/releases/download/v8.1.2/dependency-check-8.1.2-release.zip
+          unzip dependency-check.zip
       - name: Run Veracode Dependency Scan
-        uses: veracode/veracode-sca@v2.1.6
-        with:
-          SRCCLR_API_TOKEN: ${{ secrets.SYNOPSYS_SCA_API_TOKEN }}
-          VERACODE_API_ID: ${{ secrets.VERACODE_API_ID }}
-          VERACODE_API_KEY: ${{ secrets.VERACODE_API_KEY }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          url: https://github.com/appsec-devops/VV-up-scan
-          fail-on-cvss: 7.0
-          quick: false
-          update_advisor: false
-          create-issues: true
-          path: .
-          debug: false
-          skip-collectors: false
-          allow-dirty: false
-          recursive: false
-          skip-vms: false
-          run: curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --url https://github.com/appsec-devops/VV-up-scan  --json=scaResults.json
+        run: ./dependency-check/bin/dependency-check.sh --project "My Project" --scan .
