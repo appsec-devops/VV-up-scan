@@ -1,5 +1,4 @@
 name: Veracode Dependency Scan
-
 on:
   push:
     branches:
@@ -19,11 +18,21 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
-      - name: Set SRCCLR_API_TOKEN
-        run: echo "SRCCLR_API_TOKEN=${{ secrets.SYNOPSYS_SCA_API_TOKEN }}" >> $GITHUB_ENV
       - name: Run Veracode Dependency Scan
         uses: veracode/veracode-sca@v2.1.6
         with:
           veracode_api_id: ${{ secrets.VERACODE_API_ID }}
           veracode_api_key: ${{ secrets.VERACODE_API_KEY }}
           fail_on_cvss: 7.0
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          quick: false
+          update_advisor: false
+          create-issues: true
+          path: .
+          debug: false
+          skip-collectors: false
+          allow-dirty: false
+          recursive: false
+          skip-vms: false
+
+ 
