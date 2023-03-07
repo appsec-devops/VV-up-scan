@@ -21,6 +21,7 @@ jobs:
       - name: Run Veracode Dependency Scan
         uses: veracode/veracode-sca@v2.1.6
         with:
+          SRCCLR_API_TOKEN: ${{ secrets.SYNOPSYS_SCA_API_TOKEN }}
           veracode_api_id: ${{ secrets.VERACODE_API_ID }}
           veracode_api_key: ${{ secrets.VERACODE_API_KEY }}
           fail_on_cvss: 7.0
@@ -34,5 +35,6 @@ jobs:
           allow-dirty: false
           recursive: false
           skip-vms: false
+          
 
  
