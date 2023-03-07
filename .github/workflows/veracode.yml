@@ -21,7 +21,7 @@ jobs:
           node-version: '16.x'
       - name: Install Veracode Dependency Check CLI
         run: |
-          curl -L -o dependency-check https://dl.bintray.com/jeremy-long/owasp/dependency-check-6.3.1-release.zip
+          curl -sSL -o dependency-check.zip https://dl.bintray.com/jeremy-long/owasp/dependency-check-latest.zip
           unzip dependency-check.zip
       - name: Run Veracode Dependency Scan
         run: ./dependency-check/bin/dependency-check.sh --project "My Project" --scan .
