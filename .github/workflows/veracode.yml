@@ -16,7 +16,7 @@ jobs:
     - name: Install dependencies
       run: npm install
     - name: Run Veracode Dependency Scan
-      uses: veracode/dependency-check-action@v1.3
+      uses: https://github.com/veracode/dependency-check-action.git@v1.3
       with:
         veracode_api_id: ${{ secrets.VERACODE_API_ID }}
         veracode_api_key: ${{ secrets.VERACODE_API_KEY }}
