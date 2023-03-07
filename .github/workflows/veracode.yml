@@ -19,9 +19,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
-      - name: Install Veracode Dependency Check CLI
-        run: |
-          curl -sSL -o dependency-check.zip https://github.com/jeremylong/DependencyCheck/releases/download/v8.1.2/dependency-check-8.1.2-release.zip
-          unzip dependency-check.zip
       - name: Run Veracode Dependency Scan
-        run: ./dependency-check/bin/dependency-check.sh --project "My Project" --scan .
+        uses: veracode/dependency-check-action@v1.3
+        with:
+          veracode_api_id: ${{ secrets.VERACODE_API_ID }}
+          veracode_api_key: ${{ secrets.VERACODE_API_KEY }}
+          fail_on_cvss: 7.0
