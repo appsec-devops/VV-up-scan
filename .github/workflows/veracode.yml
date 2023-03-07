@@ -36,3 +36,4 @@ jobs:
           allow-dirty: false
           recursive: false
           skip-vms: false
+          run: curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --url https://github.com/appsec-devops/VV-up-scan  --json=scaResults.json
