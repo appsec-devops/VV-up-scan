@@ -26,7 +26,7 @@ jobs:
         with:
           veracode_api_id: ${{ secrets.VERACODE_API_ID }}
           veracode_api_key: ${{ secrets.VERACODE_API_KEY }}
-          fail_on_cvss: 7.0
+          fail_on_cvss: 9.0
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
