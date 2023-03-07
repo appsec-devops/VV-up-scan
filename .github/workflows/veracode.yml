@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: '16.x'
       - name: Run Veracode Dependency Scan
-        uses: veracode/dependency-check-action@v1.3
+        uses: veracode/veracode-sca@v2.1.6
         with:
           veracode_api_id: ${{ secrets.VERACODE_API_ID }}
           veracode_api_key: ${{ secrets.VERACODE_API_KEY }}
