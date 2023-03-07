@@ -3,9 +3,9 @@ name: Veracode Dependency Scan
 on:
   push:
     branches:
-      -  master
+      - main
   pull_request:
-    branches: [master]
+    branches: [main]
   schedule:
     - cron: '26 3 * * 0'
 
@@ -19,16 +19,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
-      - name: Install dependencies
-        run: npm install
+      - name: Install Veracode Dependency Check CLI
+        run: |
+          curl -L -o dependency-check.zip https://dl.bintray.com/jeremy-long/owasp/dependency-check-6.3.1-release.zip
+          unzip dependency-check.zip
       - name: Run Veracode Dependency Scan
-        uses: veracode/dependency-check-action@v1.3
-        with:
-          veracode_api_id: ${{ secrets.VERACODE_API_ID }}
-          veracode_api_key: ${{ secrets.VERACODE_API_KEY }}
-          fail_on_cvss: 9.0
+        run: ./dependency-check/bin/dependency-check.sh --project "My Project" --scan .
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v3.11.1
         with:
           commit-message: Automatic Dependency Update
           branch: automatic-dependency-update
