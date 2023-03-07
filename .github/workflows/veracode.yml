@@ -1,28 +1,16 @@
-name: Veracode Static Analysis Demo
-on: workflow_dispatch
-    
+name: Veracode Dependency Scan
+on: [pull_request]
 jobs:
-  static_analysis:
-    name: Static Analysis
+  build:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Check out main branch
-        uses: actions/checkout@v2
-        
-      - name: Build with Maven # Compiling the .war binary from the checked out repo source code to upload to the scanner in the next step
-        run: mvn -B package --file app/pom.xml
-          
-      - name: Veracode Upload And Scan
-        uses: veracode/veracode-uploadandscan-action@0.2.4
-        with:
-          appname: 'VeraDemo'
-          createprofile: false
-          vid: '${{ secrets.API_ID }}'
-          vkey: '${{ secrets.API_KEY }}'
-#          createsandbox: 'true'
-#          sandboxname: 'SANDBOXNAME'
-#          scantimeout: 0
-#          exclude: '*.js'
-#          include: '*.war'
-#          criticality: 'VeryHigh'
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install dependencies
+      run: npm install
+    - name: Run Veracode Dependency Scan
+      uses: veracode/dependency-check-action@v1.3
+      with:
+        veracode_api_id: ${{ secrets.VERACODE_API_ID }}
+        veracode_api_key: ${{ secrets.VERACODE_API_KEY }}
+        fail_on_cvss: 9.0
